@@ -1,0 +1,22 @@
+textarea {
+    min-height: 400px;
+}
+
+.mailbox-title {
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.mailbox-email {
+    font-size: .8rem;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    font-weight: bold;
+}
+
+
+
+

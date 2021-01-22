@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Error Page
+{% endblock %}
+
+{% block body %}
+    <h3>The page {{entryTitle}} was not found. Please try to enter a valid entry</h3>
+    <p>Here is a list of valid entries available:</p>
+
+    <ul>
+        {% for entry in entries %}
+            <li>{{ entry }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

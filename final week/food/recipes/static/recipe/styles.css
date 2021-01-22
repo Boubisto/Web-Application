@@ -1,0 +1,28 @@
+
+
+.cookbook-title {
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+
+#add-description #add-ingredients {
+    height: 200px;
+}
+.cookbook-recipe {
+    font-size: .8rem;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    font-weight: bold;
+}
+
+h1,h3,button{
+    text-align: center;
+    color: orange;
+    background-color: white;
+    border-style: solid;
+    border-color: orange;
+    border-width: thick;
+}

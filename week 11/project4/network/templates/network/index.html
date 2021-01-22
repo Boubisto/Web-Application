@@ -1,0 +1,13 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <script>
+        const csrf_token = '{{ csrf_token }}';
+        const which_posts_to_load = '{{ which_posts }}';
+        const page_number_requested = parseInt('{{ page_number }}');
+    </script>
+
+    <div id="app"></div>
+    <script type="text/babel" src="{% static 'network/index.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+
+<h2>{{ title }}</h2>
+
+{% for listing in listings reversed %}
+    <div class="container all-listings">
+    <div class="row listing">
+        <div class="col">
+            <a href="{% url 'auctions:listing' listing.pk %}">
+                {% if listing.image_url %}
+                    <img class="float-right" width="400" height="300" src="{{ listing.image_url }}" alt="image">
+                {% else%}
+                    <p>This Listing has no image</p>
+                {% endif %}
+            </a>
+        </div>
+        <div class="col">
+            <div class="row listing-title">
+                <h4><a href="{% url 'auctions:listing' listing.pk %}">{{ listing.title }}</a><span class="listing-author"> &nbsp; by {{ listing.author }}</span></h4>
+            </div>
+            <div class="row">
+                <p> Description: {{ listing.description }}</p>
+                <br>
+            </div>
+            <div class="row">
+                <p>Starting Bid: ${{ listing.starting_bid }}</p>
+            </div>
+            <div class="row">
+                <p>Current Bid:${{ listing.current_bid }} </p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br>
+    {% empty %}
+    <br/>
+    <p>There are no listing</p>
+{% endfor %}
+{% endblock %}

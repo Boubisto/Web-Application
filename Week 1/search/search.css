@@ -1,0 +1,82 @@
+.myLinks {
+    text-align: right;
+    position: fixed;
+    margin-right: 5px;
+    margin-top: 10px;
+    right: 0;
+    top: 0;
+}
+a:hover{
+    color: crimson;
+    text-decoration: none;
+}
+
+input[type="text"]{
+    border-radius: 20px;
+    border: 1px solid grey;
+    margin: 10px;
+    width: 580px;
+    height: 40px;
+    border-color: darkgrey;
+}
+.myBar:hover{
+    box-shadow: 3px 3px 3px 3px #E0E0E0;
+    border-style: inherit;
+}
+
+input[type="submit"]{
+    margin-top: 20px;
+    margin-left: 8px;
+    padding: 10px;
+    font-family: arial;
+    border: transparent;
+}
+
+input[type="submit"]:hover{
+    border: 1px solid #E0E0E0;
+    
+}
+
+
+h1 {
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 20px;
+    font-size: 400%;
+    color: #4285F4;
+}
+
+#leidy{
+    color: #EA4335;
+}
+form{
+    text-align: center;
+    margin: auto;
+}
+
+.advancedPage {
+    text-align: left;
+    margin-left: 10px;
+}
+
+ h1.advancedPage {
+    color: #D93025;
+}
+
+input.myInput{
+    border-radius: 0px;
+    border: 1px solid grey;
+    margin: 10px;
+    width: 515px;
+    height: 25px;
+}
+
+.myInput{
+    left: 100;
+}
+
+#mySubmit{
+    background-color: #4889F0;
+    color: white;
+    margin-left: 555px;
+}

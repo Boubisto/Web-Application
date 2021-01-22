@@ -1,0 +1,153 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="container">
+   <div class="row">
+      <div class="col">
+         <div class="info">
+            <h2>{{ listing.title }}
+                {% if listing.closed %} &nbsp;
+                    <span class="listing-closed-info">(closed)</span> 
+                {% endif %}
+            </h2>
+            <p>Created by: {{ listing.author }}</p>
+            <p>Starting Bid: ${{ listing.starting_bid }}</p>
+            <p>Number of bids made: {{ listing.number_of_bids }} </p>
+            <p>Current Bid: ${{ listing.current_bid }} </p>
+            <p>Description: {{ listing.description }}</p>
+            <p>Created: {{listing.create_date}}</p>
+         </div>
+         <div class="bid">
+            <h5>Bid on this listing</h5>
+            {% if user.is_authenticated %}
+                {%  if listing.closed %}
+                    <p class="listing-info">This listing is no longer active</p>
+                {% endif %}
+                <fieldset {% if listing.closed %} disabled class="disabled" {% endif %} >
+                <form method="post" action="{% url 'auctions:createBid' listing.pk %}">
+                {% csrf_token %}
+                {% for field in form %}
+                        <div class="row">
+                            <label class="col-8"
+                                for="{{ field.id }}">{{ field.label }}: </label>
+                            <div class="col">
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn-primary">Make bid</button>
+                </form>
+                </fieldset>
+                {% else %}
+                    {% if listing.closed %}
+                    <p>This listing is no longer active</p>
+                {% else %}
+                    <p>Please sign in to bid</p>
+                {% endif %}
+            {% endif %}
+         </div>
+      </div>
+      <div class="col">
+         <div class="row watchlist">
+            {% if user.is_authenticated %}
+            <div class="col-4">
+               <p>{% if is_watchlist %}
+                  Item is in watchlist
+                  {% else %}
+                  Item is not in watchlist
+                  {% endif %}
+               </p>
+            </div>
+            <div class="col-4">
+               <form action="{% url 'auctions:watchlist' listing.pk %}" method="POST">
+                  {% csrf_token %}
+                  <input type="submit" value="Add/Remove">
+               </form>
+            </div>
+            {% else %}
+            <p> Log in to add to your watchlist</p>
+            {% endif %}
+         </div>
+         <div class="row">
+            <div class="col">
+               {% if listing.image_url %}
+               <img class="float-right" width="400" height="300" src="{{ listing.image_url }}" alt="image">
+               {% else%}
+               <p>This Listing has no image</p>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+   </div>
+   <br>
+   <div class="row listing">
+      <div class="col">
+         <h5>Current status of this listing</h5>
+        {% if listing.closed %}
+            {% if is_mine %}
+                {% if listing.winning_bidder %}
+                    <p> Your listing was sold to {{ listing.winning_bidder }} </p>
+                {% else %}
+                <p> Your listing is closed and was not sold.</p>
+                {% endif %}
+            {% else %}
+                {%  if listing.winning_bidder == user %}
+                    <p> You have won this auction</p>
+                {% elif listing.winning_bidder is None %}
+                <p> Nobody bid on this listing and it has been closed. </p>
+                {% else %}
+                <p> An anonymous user has won this auction</p>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <p> This listing is still accepting bids!</p>
+        {% endif %}
+        <div class="col">
+            {%  if is_mine %}
+                {% if not listing.closed %}
+                    <form class="row listing-page-bid-close-section" method="POST" action="{% url 'auctions:closeListing' listing.pk %}">
+                    {%  csrf_token %}
+                    <button>Close this listing</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   <hr/>
+   <div class="comments">
+      <h5>Comments</h5>
+      {% for comment in listing.my_comments.all %}
+        <div class="row">
+            <div class="col">
+                <h6><strong>{{ comment.author }}</strong> says:</h6>
+                <p> {{ comment.comment_content }}</p>
+            </div>
+        </div>
+      {% endfor %}
+      {%  if user.is_authenticated %}
+        <div class="row>
+            <div class="col">
+            <form action="{% url 'auctions:comment' listing.pk %}" method="post" id="comment-form">
+                {% csrf_token %}
+                <div class="row">
+                <label for="comment" class="col"> Your comment: </label>
+                </div>
+                <div class="row-4">
+                <textarea id="comment" name="comment" placeholder="Comment here..." class="col-4"></textarea>
+                </div>
+                <br>
+                <div class="row-4">
+                <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+      {% else %}
+        <p>Sign in to submit your own comments!</p>
+      {% endif %}
+   </div>
+</div>
+</div>
+{% endblock %}
